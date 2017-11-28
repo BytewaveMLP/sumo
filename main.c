@@ -18,6 +18,8 @@ task sensorRead() {
 }
 
 task main() {
+	startTask(sensorRead);
+	
 	while (true) {
 		switch (state) {
 			case STATE_DEFAULT:
