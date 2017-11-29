@@ -1,3 +1,4 @@
+
 #pragma config(Sensor, S1,     line,           sensorEV3_Color)
 #pragma config(Sensor, S2,     gyro,           sensorEV3_Gyro)
 #pragma config(Motor,  motorB,          left,          tmotorEV3_Large, PIDControl, driveLeft, encoder)
@@ -27,16 +28,23 @@ task sensorRead() {
 
 task main() {
 	startTask(sensorRead);
-	
+
+	sensorReset(S2);
+	resetGyro(S2);
+
 	while (true) {
 		switch (state) {
-			case STATE_DEFAULT:
-				break;
-			case STATE_OTHER:
-				break;
-			default:
-				writeDebugStreamLine("Entered unknown state %d, aborting...", state);
-				stopAllTasks();
+		case STATE_DEFAULT:
+			float gyroRead = getGyroHeading(S2);
+			int *speeds = drive(0, gyroRead, 90);
+			setMotorSpeed(motorB, speeds[0]);
+			setMotorSpeed(motorC, speeds[1]);
+			break;
+		case STATE_OTHER:
+			break;
+		default:
+			writeDebugStreamLine("Entered unknown state %d, aborting...", state);
+			stopAllTasks();
 		}
 	}
 }
