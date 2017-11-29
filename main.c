@@ -10,17 +10,16 @@
 
 #include "pid.c"
 int targetAngle = 0;
-int state = 0;
+int state = STATE_CHARGE;
 int gyroRead=0;
 int colorRead=0;
 
 task sensorRead() {
 	int lastRead=1000;
 	while(true) {
-		gyroRead= getGyroHeading(S2);
-		//default state
+		gyroRead=getGyroHeading(S2);
 		colorRead=getColorReflected(line);
-		if(colorRead<20&& lastRead>20){
+		if(colorRead<20&&lastRead>20){
 			//go into turning state
 			state=STATE_TURN;
 			targetAngle+=100;
