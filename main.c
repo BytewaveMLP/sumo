@@ -44,10 +44,8 @@ task main() {
 	while (true) {
 		switch (state) {
 		case STATE_TURN:
-
-			int *speeds = drive(0, gyroRead, targetAngle);
-			setMotorSpeed(motorB, speeds[0]);
-			setMotorSpeed(motorC, speeds[1]);
+			setMotorSpeed(motorB, 100);
+			setMotorSpeed(motorC,0);
 			break;
 
 		case STATE_CHARGE:
