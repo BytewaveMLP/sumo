@@ -1,5 +1,5 @@
-#define kP 0.5
-#define kD 10
+#define kP 2
+#define kD 0
 
 float lastPosition = 0;
 
@@ -17,6 +17,6 @@ float pid(float setpoint, float position) {
 
 int *drive(float speed, float pos, float setpoint) {
 	float turn = pid(setpoint, pos);
-	int speeds[2] = {round(speed + turn), round(speed - turn)};
+	int speeds[2] = {round(speed - turn), round(speed + turn)};
 	return speeds;
 }
