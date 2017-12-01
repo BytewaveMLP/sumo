@@ -11,25 +11,25 @@
 
 int targetAngle = 0;
 int state = STATE_CHARGE;
-int gyroRead=0;
-int colorRead=0;
+int gyroRead = 0;
+int colorRead = 0;
 
 task sensorRead() {
-	int lastRead=1000;
-	while(true) {
-		gyroRead=getGyroHeading(S2);
-		colorRead=getColorReflected(line);
-		if(colorRead<threshold&&lastRead>threshold){
-			//go into turning state
+	int lastRead = 1000;
+	while (true) {
+		gyroRead = getGyroHeading(S2);
+		colorRead = getColorReflected(line);
+		if (colorRead < threshold && lastRead > threshold){
+			// go into turning state
 			if (DEBUG) playTone(440, 10);
-			state=STATE_TURN;
-			targetAngle+=100;
+			state = STATE_TURN;
+			targetAngle += 100;
 		}
-		if(gyroRead>=targetAngle){
+		if (gyroRead >= targetAngle){
 			if (DEBUG) playTone(880, 10);
-			state=STATE_CHARGE;
+			state = STATE_CHARGE;
 		}
-		lastRead=colorRead;
+		lastRead = colorRead;
 	}
 }
 
@@ -41,17 +41,13 @@ task main() {
 	//start state controller
 	startTask(sensorRead);
 
-
-
 	while (true) {
 		switch (state) {
 		case STATE_TURN:
-
 			int *speeds = drive(0, gyroRead, targetAngle);
 			setMotorSpeed(motorB, speeds[0]);
 			setMotorSpeed(motorC, speeds[1]);
 			break;
-
 		case STATE_CHARGE:
 			setMotorSpeed(motorB, 100);
 			setMotorSpeed(motorC, 100);
