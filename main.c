@@ -69,7 +69,7 @@ task main() {
 			setMotorSpeed(motorB, -100);
 			setMotorSpeed(motorC, -100);
 			sleep(500);
-			state=STATE_TURN;
+			state = STATE_TURN;
 			break;
 		default:
 			writeDebugStreamLine("Entered unknown state %d, aborting...", state);
