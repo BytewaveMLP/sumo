@@ -71,7 +71,6 @@ task main() {
 			sleep(500);
 			state=STATE_TURN;
 			break;
-
 		default:
 			writeDebugStreamLine("Entered unknown state %d, aborting...", state);
 			stopAllTasks();
