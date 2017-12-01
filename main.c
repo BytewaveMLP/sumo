@@ -7,6 +7,8 @@
 #define STATE_CHARGE 0
 #define STATE_TURN   1
 
+#define DEBUG 1
+
 int targetAngle = 0;
 int state = STATE_CHARGE;
 int gyroRead=0;
@@ -19,10 +21,12 @@ task sensorRead() {
 		colorRead=getColorReflected(line);
 		if(colorRead<threshold&&lastRead>threshold){
 			//go into turning state
+			if (DEBUG) playTone(440, 10);
 			state=STATE_TURN;
 			targetAngle+=100;
 		}
 		if(gyroRead>=targetAngle){
+			if (DEBUG) playTone(880, 10);
 			state=STATE_CHARGE;
 		}
 		lastRead=colorRead;
