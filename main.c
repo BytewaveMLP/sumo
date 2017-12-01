@@ -7,8 +7,6 @@
 #define STATE_CHARGE 0
 #define STATE_TURN   1
 
-
-#include "pid.c"
 int targetAngle = 0;
 int state = STATE_CHARGE;
 int gyroRead=0;
