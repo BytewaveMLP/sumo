@@ -19,7 +19,7 @@ int colorRead = 0;
 task sensorRead() {
 	int lastRead = 1000;
 	while (true) {
-		gyroRead = getGyroDegrees(S2);
+		gyroRead = getGyroDegrees(gyro);
 		colorRead = getColorReflected(line);
 
 		if (DEBUG) {
@@ -48,8 +48,8 @@ task sensorRead() {
 
 task main() {
 	//reset gyro
-	sensorReset(S2);
-	resetGyro(S2);
+	sensorReset(gyro);
+	resetGyro(gyro);
 
 	//start state controller
 	startTask(sensorRead);
