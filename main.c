@@ -67,7 +67,7 @@ task main() {
 			break;
 		case STATE_REVERSE:
 			setMotorSpeed(motorB, -100);
-			setMotorSpeed(motorC,-100);
+			setMotorSpeed(motorC, -100);
 			sleep(500);
 			state=STATE_TURN;
 			break;
