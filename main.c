@@ -11,7 +11,7 @@
 #define STATE_TURN    1
 #define STATE_REVERSE 2
 
-#define DEBUG 1
+#define DEBUG 0
 
 int targetAngle = 0;
 int state = STATE_CHARGE;
