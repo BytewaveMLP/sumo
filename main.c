@@ -21,7 +21,6 @@ int colorRead = 0;
 task sensorRead() {
 	int lastRead = 1000;
 	while (true) {
-		gyroRead = getGyroDegrees(gyro);
 		colorRead = getColorReflected(line);
 
 		if (DEBUG) {
@@ -36,12 +35,6 @@ task sensorRead() {
 			if (DEBUG) displayCenteredBigTextLine(8, "STATE: %s (*)", state == STATE_CHARGE ? "C" : "T");
 			state = STATE_REVERSE;
 			targetAngle += ANGLE_CHANGE;
-		}
-
-		if (gyroRead <= targetAngle) {
-			targetAngle = gyroRead;
-			if (DEBUG) displayCenteredBigTextLine(8, "STATE: %s (*)", state == STATE_CHARGE ? "C" : "T");
-			state = STATE_CHARGE;
 		}
 
 		lastRead = colorRead;
@@ -62,6 +55,8 @@ task main() {
 		case STATE_TURN:
 			setMotorSpeed(motorB, 0);
 			setMotorSpeed(motorC, -100);
+			sleep(500);
+			state = STATE_CHARGE;
 			break;
 		case STATE_CHARGE:
 			setMotorSpeed(motorB, 80);
